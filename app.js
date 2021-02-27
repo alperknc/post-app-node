@@ -1,9 +1,8 @@
-const dotenv = require('dotenv');
-dotenv.config();
-
 const express = require('express');
 const session = require('express-session');
 const MongoStore = require('connect-mongo').default;
+const flash = require('connect-flash');
+const dotenv = require('dotenv');
 
 const app = express();
 
@@ -14,7 +13,9 @@ let sessionOptions = session({
     saveUninitialized: false,
     cookie: {maxAge: 1000 * 60 * 60 * 24, httpOnly: true}
 })
+
 app.use(sessionOptions);
+app.use(flash());
 
 const router = require('./router');
 
